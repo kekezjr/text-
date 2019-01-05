@@ -111,6 +111,21 @@ window.onload = function(){
         contentUlNodes.style.top = -nowIndex * contentHeight + 'px';
     }
 
+//    第一屏区域的代码
+    function homeHandle(){
 
+        var homePointNode = document.querySelector('.home_point');
+
+
+
+
+    //    给每个小圆点绑定单击事件
+        for(var i=0;i<homePointNode.length;i++){
+            homePointNode.onclick = function(){
+
+            }
+
+        }
+    }
 
 }
