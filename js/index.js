@@ -119,35 +119,79 @@ window.onload = function(){
         var homeUlNode = document.querySelector('.home_carousel');
         var homeLiNodes = document.querySelectorAll('.home_carousel li');
 
-        //上一次的下标
+//         //上一次的下标
         var lastIndex = 0;
     //    当前的下标值
         var nowIndex = 0;
+        var lastTime = 0;
 
+        var timer = null;
     //    给每个小圆点绑定单击事件
         for(var i=0;i<homePointNodes.length;i++){
-
+            homePointNodes[i].index = i;
             homePointNodes[i].onclick = function(){
-                // console.log('wo');
+                //函数节流，规定时间内，只让第一次操作，后面的不生效
+                //如果点击的时间小于两秒  事件不生效
+                var nowTime = Date.now();
+                if(nowTime - lastTime <= 2000) return;
+//                同步上次点击的时间
+                lastTime = nowTime;
 
+//                同步index的值
+                nowIndex = this.index;
                 //清除掉所有的class
                 for (var j = 0; j < homeLiNodes.length; j++) {
                     homeLiNodes[j].className = 'commonTitle';
                 }
 
+                if(nowIndex === lastIndex) return;
+
                 if(nowIndex > lastIndex){
                 //    点击的是右边
-                    homeLiNodes[nowIndex].className = 'commonTitle rightShow';
-                    homeLiNodes[lastIndex].className = 'commonTitle leftHide';
+                    homeLiNodes[nowIndex].className = 'commonTitle right-show';
+                    homeLiNodes[lastIndex].className = 'commonTitle left-hide';
                 }else{
                 //    点击的是左边
-                    homeLiNodes[nowIndex].className = 'commonTitle leftShow';
-                    homeLiNodes[lastIndex].className = 'commonTitle rightHide';
+                    homeLiNodes[nowIndex].className = 'commonTitle left-show';
+                    homeLiNodes[lastIndex].className = 'commonTitle right-hide';
                 }
+
+                //小圆点同步
+                homePointNodes[lastIndex].className = '';
+                this.className = 'active';
+
             //    同步下标
                 lastIndex = nowIndex;
             }
 
+        }
+    //    鼠标移入
+        homeUlNode.onmouseenter = function(){
+        //    定时器关闭
+            clearInterval(timer);
+        }
+    //    鼠标移出
+        homeUlNode.onmouseleave = autoplay;
+
+    //    自动轮播
+        autoplay();
+        function autoplay(){
+            timer = setInterval(function(){
+                nowIndex++;
+                if(nowIndex >= 4){
+                    nowIndex = 0;
+                }
+                //右边显示
+                homeLiNodes[nowIndex].className = 'commonTitle right-show';
+                homeLiNodes[lastIndex].className = 'commonTitle left-hide';
+
+                //小圆点同步
+                homePointNodes[lastIndex].className = '';
+                homePointNodes[nowIndex].className = 'active';
+
+                //    同步index的值
+                lastIndex = nowIndex;
+            },2500);
         }
     }
 
