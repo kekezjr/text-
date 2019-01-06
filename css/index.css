@@ -457,3 +457,44 @@ img{display: block;}
     background-repeat: no-repeat;
 }
 
+
+/*第五屏*/
+.teamTitle{
+    float: left;
+    width: 400px;
+    margin: 50px;
+}
+.teamContent{
+    float: right;
+    width: 400px;
+    margin: 50px;
+}
+.teamList{
+    position: absolute;
+    top: 230px;
+    left:50%;
+    width: 994px;
+    height: 448px;
+    margin-left: -472px;
+}
+.teamList li{
+    float: left;
+    width: 236px;
+    height:100%;
+    background-image: url("../img/team.png");
+    background-repeat: no-repeat;
+}
+.teamList li:nth-child(1){
+    background-position: 3px 0px;
+}
+.teamList li:nth-child(2){
+    background-position: -230px 0px;
+}
+.teamList li:nth-child(3){
+    background-position: -483px 0px;
+}
+.teamList li:nth-child(4){
+    background-position: -710px 0px;
+}
+
+/*侧边导航*/
