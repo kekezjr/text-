@@ -17,6 +17,7 @@ window.onload = function(){
     var contentHeight = contentNode.offsetHeight;
     var nowIndex = 0;
     var wheelTimer = null;
+
     //头部函数
     header();
     function header(){
@@ -112,17 +113,39 @@ window.onload = function(){
     }
 
 //    第一屏区域的代码
+    homeHandle();
     function homeHandle(){
+        var homePointNodes = document.querySelectorAll('.home_point li');
+        var homeUlNode = document.querySelector('.home_carousel');
+        var homeLiNodes = document.querySelectorAll('.home_carousel li');
 
-        var homePointNode = document.querySelector('.home_point');
-
-
-
+        //上一次的下标
+        var lastIndex = 0;
+    //    当前的下标值
+        var nowIndex = 0;
 
     //    给每个小圆点绑定单击事件
-        for(var i=0;i<homePointNode.length;i++){
-            homePointNode.onclick = function(){
+        for(var i=0;i<homePointNodes.length;i++){
 
+            homePointNodes[i].onclick = function(){
+                // console.log('wo');
+
+                //清除掉所有的class
+                for (var j = 0; j < homeLiNodes.length; j++) {
+                    homeLiNodes[j].className = 'commonTitle';
+                }
+
+                if(nowIndex > lastIndex){
+                //    点击的是右边
+                    homeLiNodes[nowIndex].className = 'commonTitle rightShow';
+                    homeLiNodes[lastIndex].className = 'commonTitle leftHide';
+                }else{
+                //    点击的是左边
+                    homeLiNodes[nowIndex].className = 'commonTitle leftShow';
+                    homeLiNodes[lastIndex].className = 'commonTitle rightHide';
+                }
+            //    同步下标
+                lastIndex = nowIndex;
             }
 
         }
