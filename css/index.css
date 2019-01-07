@@ -46,6 +46,11 @@ img{display: block;}
 .music{
     float: left;
     margin-top: 50px;
+    background-image: url("../img/musicoff.gif");
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
 .nav{
     float: right;
