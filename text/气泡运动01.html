@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            background: grey;
+        }
+        #myCanvas{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background: white;
+        }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="150" height="400"></canvas>
+</body>
+<script type="text/javascript">
+    window.onload = function () {
+//        获取canvas
+        var canvas = document.getElementById('myCanvas');
+
+
+
+//       处理canvas的兼容问题
+        if(canvas.getContext){
+
+          var width = canvas.width;
+          var height = canvas.height;
+
+//        圆的数据数组
+          var circleArr = [];
+          // 获取画笔
+          var painting = canvas.getContext('2d');
+//        生成随机圆
+          setInterval(function(){
+//            颜色随机
+            var r = Math.round(Math.random() * 225);
+            var g = Math.round(Math.random() * 225);
+            var b = Math.round(Math.random() * 225);
+//            半径随机
+            var c_r = Math.round(Math.random() * 8 + 2);    //半径从2到10
+//            起始位置随机
+            var x = Math.round(Math.random() * width);
+            var y = canvas.height + c_r;
+
+//            缩放的系数
+            var s = Math.round(Math.random() * 50 + 10);
+
+//            填到数组中
+            circleArr.push({
+              r : r,
+              g : g,
+              b : b,
+              x : x,
+              y : y,
+              c_r : c_r,
+              deg : 0,
+              s : s
+            })
+          },50);
+
+//        画圆
+          setInterval(function(){
+//            清除画布
+            painting.clearRect(0, 0, width, height);
+            for(var i=0;i<circleArr.length;i++){
+              var item = circleArr[i];
+//              增加角度
+              item.deg += 4;
+//              求取弧度
+              var rad = item.deg * Math.PI / 180;
+//              小圆点的运动坐标
+              var nowLeft = item.x + Math.sin(rad) * item.s;
+              var nowTop = item.y - rad * item.s;
+
+//              将超出小圆点的坐标清除掉
+              if(nowTop <= -item.c_r){
+                circleArr.splice(i , 1);
+                continue;
+              }
+
+//              绘制颜色
+              painting.fillStyle = 'rgba(' +item.r + ', ' + item.g + ', ' + item.b + ', 1)';
+//              开始一条路径
+              painting.beginPath();
+//              画圆
+              painting.arc(nowLeft , nowTop , item.c_r , 0 , Math.PI * 2);
+//              填充
+              painting.fill();
+            }
+          },1000 / 60);
+
+        }
+
+    }
+</script>
+</html>
