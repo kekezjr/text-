@@ -588,6 +588,7 @@ img{display: block;}
     position: absolute;
     top:50%;
     right: 10px;
+    transform: translateY(-50%);
 }
 .navList li{
     width: 15px;
@@ -603,7 +604,7 @@ img{display: block;}
     position: absolute;
     top: 0;
 }
-开机动画
+/*开机动画*/
 .bootAnimation{
     position: absolute;
     top:0;

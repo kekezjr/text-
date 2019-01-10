@@ -15,6 +15,7 @@ window.onload = function(){
 
   //侧边导航栏
   var navLiNodes = document.querySelectorAll('.navList li');
+  // var navNode = document.querySelector('.navList');
 
     //音乐
   var musicNode = document.querySelector('.music');
@@ -46,7 +47,35 @@ window.onload = function(){
   var lastIndex = 0;
   var wheelTimer = null;
 
+//    封装函数(公共的区域)
+  function move(nowIndex){
 
+    //默认清空所有的width为0
+    // for(var j = 0;j < headerUpNodes.length; j++){
+    //   headerUpNodes[j].style.width = '0';
+    //   navLiNodes[j].className = '';
+    // }
+    headerUpNodes[lastIndex].style.width = '0';
+    navLiNodes[lastIndex].className = '';
+
+    //手动设置为100%；
+    headerUpNodes[nowIndex].style.width = '100%';
+
+    //   让小箭头去指定的li的位置下
+    headerArrowNode.style.left = headerLiNodes[nowIndex].getBoundingClientRect().left +  headerLiNodes[nowIndex].offsetWidth / 2 - headerArrowNode.offsetWidth / 2 + 'px';
+
+    //让内容区的ul跟着移动
+    contentUlNodes.style.top = -nowIndex * contentHeight + 'px';
+
+    //    侧标导航
+    navLiNodes[nowIndex].className = 'active';
+
+    //上一屏做出厂动画，下一屏做入场动画
+    animationArr[lastIndex].anOut();
+    animationArr[nowIndex].anIn();
+
+    lastIndex = nowIndex;
+  }
 
     //头部函数
   header();
@@ -100,13 +129,13 @@ window.onload = function(){
             if(nowIndex > 0){
               nowIndex--;
               // console.log('up');
-              move(nowIndex);
+              move(nowIndex)
             }
             break;
           case 'down' :
-            if(nowIndex < 4){
+            if(nowIndex < headerUpNodes.length - 1){
               nowIndex++;
-              move(nowIndex);
+              move(nowIndex)
             }
             break;
         }
@@ -126,31 +155,7 @@ window.onload = function(){
         contentUlNodes.style.top = -nowIndex * contentNode.offsetHeight + 'px';
     }
 
-//    封装函数(公共的区域)
-  function move(nowIndex){
 
-        //默认清空所有的width为0
-    for(var j = 0;j < headerUpNodes.length; j++){
-            headerUpNodes[j].style.width = '0';
-        }
-        //手动设置为100%；
-     headerUpNodes[nowIndex].style.width = '100%';
-        //   让小箭头去指定的li的位置下
-     headerArrowNode.style.left = headerLiNodes[nowIndex].getBoundingClientRect().left +  headerLiNodes[nowIndex].offsetWidth / 2 - headerArrowNode.offsetWidth / 2 + 'px';
-
-        //让内容区的ul跟着移动
-     contentUlNodes.style.top = -nowIndex * contentHeight + 'px';
-
-    //    侧标导航
-
-
-
-    //上一屏做出厂动画，下一屏做入场动画
-    animationArr[lastIndex].anOut();
-    animationArr[nowIndex].anIn();
-
-    lastIndex = nowIndex;
-    }
 
 //    第一屏区域的代码
     homeHandle();
@@ -515,19 +520,13 @@ window.onload = function(){
   }
 
 
-
-
-
-
-
-
 //    侧边导航栏
-//     for(var i=0;i<navLiNodes.length;i++){
-//         navListNode[i].index = i;
-//         navLiNodes[i].onclick = function(){
-//             nowIndex = this.index;
-//                move(nowIndex);
-//         }
-//     }
+    for(var i=0;i<navLiNodes.length;i++){
+      navLiNodes[i].index = i;
+      navLiNodes[i].onclick = function(){
+        nowIndex = this.index;
+        move(nowIndex);
+        }
+    }
 
 }
