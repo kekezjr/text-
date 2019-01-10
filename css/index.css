@@ -146,7 +146,7 @@ img{display: block;}
     height:100%;
     transform-style: preserve-3d;
     perspective: 1000px;
-    transition: opacity 1s, transform 1s;
+    transition: transform 1s , opacity 1s;
 }
 .home_carousel li{
     position: absolute;
@@ -313,28 +313,31 @@ img{display: block;}
     width:359px;
     height:283px;
     background:url(../img/plane1.png) no-repeat;
+    background-repeat: no-repeat;
     position:absolute;
     left:300px;
     top:-100px;
-    transition:1s;
+    transition:transform 1s;
 }
 .plane2{
     width:309px;
     height:249px;
     background:url(../img/plane2.png) no-repeat;
+    background-repeat: no-repeat;
     position:absolute;
     left:-100px;
     top:200px;
-    transition:1s;
+    transition:transform 1s;
 }
 .plane3{
     width:230px;
     height:182px;
     background:url(../img/plane3.png) no-repeat;
+    background-repeat: no-repeat;
     position:absolute;
     left:300px;
     top:400px;
-    transition:1s;
+    transition:transform 1s;
 }
 
 /*第三屏*/
@@ -423,7 +426,8 @@ img{display: block;}
     background:url(../img/pencel1.png) no-repeat;
     position:absolute;
     transition:1s;
-    left:500px; top:0;
+    left:500px;
+    top:0;
 }
 .pencel2{
     width:268px;
@@ -460,6 +464,7 @@ img{display: block;}
     height: 200px;
     border: 5px rgba(255,255,255,0.5) solid;
     border-radius: 8px;
+    transition: transform 1s;
 }
 .aboutImg:nth-child(3){
     top: 50px;
@@ -542,11 +547,13 @@ img{display: block;}
     float: left;
     width: 400px;
     margin: 50px;
+    transition: transform 1s;
 }
 .teamContent{
     float: right;
     width: 400px;
     margin: 50px;
+    transition: transform 1s;
 }
 .teamList{
     position: absolute;
@@ -596,7 +603,7 @@ img{display: block;}
     position: absolute;
     top: 0;
 }
-/*开机动画*/
+开机动画
 .bootAnimation{
     position: absolute;
     top:0;

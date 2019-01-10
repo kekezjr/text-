@@ -43,6 +43,7 @@ window.onload = function(){
     //内容区域设置的变量
   var contentHeight = contentNode.offsetHeight;
   var nowIndex = 0;
+  var lastIndex = 0;
   var wheelTimer = null;
 
 
@@ -142,6 +143,13 @@ window.onload = function(){
 
     //    侧标导航
 
+
+
+    //上一屏做出厂动画，下一屏做入场动画
+    animationArr[lastIndex].anOut();
+    animationArr[nowIndex].anIn();
+
+    lastIndex = nowIndex;
     }
 
 //    第一屏区域的代码
@@ -375,28 +383,29 @@ window.onload = function(){
 
   }
 
+
+
 //出入场动画
   var animationArr = [
     {    //第一屏
       anOut : function() {
         //  出厂动画
         homeUlNode.style.transform = 'translateY(-200px)';
-        homeUlNode.style.opacity ='0';
-
+        homeUlNode.style.opacity = 0;
       },
       anIn : function() {
         //  入场动画化
         homeUlNode.style.transform = 'translateY(0)';
-        homeUlNode.style.opacity = '1';
+        homeUlNode.style.opacity = 1;
       }
     },
 
     {    //第二屏
       anOut : function() {
         //  出厂动画  左上  左下  右上
-        plane1Node.style.transform = 'translate(-100px,-100px)';
-        plane2Node.style.transform = 'translate(-100px,100px)';
-        plane3Node.style.transform = 'translate(100px,-100px)';
+        plane1Node.style.transform = 'translate(-200px,-200px)';
+        plane2Node.style.transform = 'translate(-200px,200px)';
+        plane3Node.style.transform = 'translate(200px,-200px)';
       },
       anIn : function() {
         //  入场动画化
@@ -449,15 +458,16 @@ window.onload = function(){
     }
   ]
 
-  //初始化时所有的屏都得做出厂动画
-  // for(var i = 0 ; i< animationArr.length ; i++){
-  //   animationArr[i].anOut();
-  // }
+  // 初始化时所有的屏都得做出厂动画
+  for(var i = 0 ; i< animationArr.length ; i++){
+    animationArr[i].anOut();
+  }
 
   // animationArr[4].anOut();
   // setTimeout(function(){
   //   animationArr[4].anIn();
   // },1500)
+  // move(4);
 
 //开机动画
   bootAnimation();
@@ -501,8 +511,6 @@ window.onload = function(){
       }
 
     }
-
-
 
   }
 
