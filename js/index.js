@@ -20,6 +20,26 @@ window.onload = function(){
   var musicNode = document.querySelector('.music');
   var musicIconNode = document.querySelector('.music-icon');
 
+    //第一屏dom
+  var homeUlNode = document.querySelector('.home_carousel');
+
+    //第二屏dom元素
+  var plane1Node = document.querySelector('.plane1');
+  var plane2Node = document.querySelector('.plane2');
+  var plane3Node = document.querySelector('.plane3');
+
+    //第三屏
+  var workPencel1Node = document.querySelector('.pencel1');
+  var workPencel2Node = document.querySelector('.pencel2');
+  var workPencel3Node = document.querySelector('.pencel3');
+
+    //第四屏
+  var aboutImgNode = document.querySelectorAll('.aboutImg');
+
+    //第五屏
+  var teamTitleNode = document.querySelector('.teamTitle');
+  var teamContentNode = document.querySelector('.teamContent');
+
     //内容区域设置的变量
   var contentHeight = contentNode.offsetHeight;
   var nowIndex = 0;
@@ -128,7 +148,6 @@ window.onload = function(){
     homeHandle();
     function homeHandle(){
         var homePointNodes = document.querySelectorAll('.home_point li');
-        var homeUlNode = document.querySelector('.home_carousel');
         var homeLiNodes = document.querySelectorAll('.home_carousel li');
 
 //         //上一次的下标
@@ -356,6 +375,136 @@ window.onload = function(){
 
   }
 
+//出入场动画
+  var animationArr = [
+    {    //第一屏
+      anOut : function() {
+        //  出厂动画
+        homeUlNode.style.transform = 'translateY(-200px)';
+        homeUlNode.style.opacity ='0';
+
+      },
+      anIn : function() {
+        //  入场动画化
+        homeUlNode.style.transform = 'translateY(0)';
+        homeUlNode.style.opacity = '1';
+      }
+    },
+
+    {    //第二屏
+      anOut : function() {
+        //  出厂动画  左上  左下  右上
+        plane1Node.style.transform = 'translate(-100px,-100px)';
+        plane2Node.style.transform = 'translate(-100px,100px)';
+        plane3Node.style.transform = 'translate(100px,-100px)';
+      },
+      anIn : function() {
+        //  入场动画化
+        plane1Node.style.transform = 'translate(0,0)';
+        plane2Node.style.transform = 'translate(0,0)';
+        plane3Node.style.transform = 'translate(0,0)';
+      }
+    },
+
+    {   //第三屏
+      anOut : function(){
+        //出厂动画  1 上  2 上  3 下
+        workPencel1Node.style.transform = 'translateY(-100px)';
+        workPencel2Node.style.transform = 'translateY(100px)';
+        workPencel3Node.style.transform = 'translateY(100px)';
+      },
+      anIn : function(){
+      //入场动画
+        workPencel1Node.style.transform = 'translateY(0)';
+        workPencel2Node.style.transform = 'translateY(0)';
+        workPencel3Node.style.transform = 'translateY(0)';
+      }
+    },
+
+    {   //第四屏
+      anOut : function(){
+      //  出厂动画
+        aboutImgNode[0].style.transform = 'rotate(45deg)';
+        aboutImgNode[1].style.transform = 'rotate(-45deg)';
+      },
+      anIn : function(){
+      //  入场动画
+        aboutImgNode[0].style.transform = 'rotate(0)';
+        aboutImgNode[1].style.transform = 'rotate(0)';
+      }
+    },
+
+    {  //第五屏
+      anOut : function(){
+        //  出厂动画
+        teamTitleNode.style.transform = 'translateX(-100px)';
+        teamContentNode.style.transform = 'translateX(100px)';
+
+      },
+      anIn : function(){
+        //  入场动画
+        teamTitleNode.style.transform = 'translateX(0)';
+        teamContentNode.style.transform = 'translateX(0)';
+      }
+    }
+  ]
+
+  //初始化时所有的屏都得做出厂动画
+  // for(var i = 0 ; i< animationArr.length ; i++){
+  //   animationArr[i].anOut();
+  // }
+
+  // animationArr[4].anOut();
+  // setTimeout(function(){
+  //   animationArr[4].anIn();
+  // },1500)
+
+//开机动画
+  bootAnimation();
+  function bootAnimation(){
+    //获取dom元素
+    var bootAnimationNode = document.querySelector('.bootAnimation');
+    var bootTopNode = document.querySelector('.bootAnimation .top');
+    var bootBottomNode = document.querySelector('.bootAnimation .bottom');
+    var bootLineNode = document.querySelector('.bootAnimation .line');
+
+  //  根据图片来决定加载的进度
+    var imageArr = ['bg1.jpg','bg2.jpg','bg3.jpg','bg4.jpg','bg5.jpg','about1.jpg','about2.jpg','about3.jpg','about4.jpg','worksimg1.jpg','worksimg2.jpg','worksimg3.jpg','worksimg4.jpg','team.png','greenLine.png'];
+
+    var num = 0;   //加载完成图片的数量
+    for(var i=0;i<imageArr.length;i++){
+      var item = imageArr[i];
+    //  创建图片容器
+      var image = new Image();
+      image.src = './img/' + item;
+
+    // 绑定事件
+      image.onload = function(){
+      //  图片加载完成触发onload事件
+        num++;
+        //  说明图片加载完成
+          bootLineNode.style.width = num / imageArr.length * 100 + '%';
+
+          if(num === imageArr.length){
+          //  说明图片都加载完成 ，要打开遮罩层
+            bootTopNode.style.height = 0;
+            bootBottomNode.style.height = 0;
+            bootLineNode.style.display = 'none';
+
+            bootTopNode.addEventListener('transitionend',function(){
+              bootAnimationNode.remove();
+            //  第一屏要做入场动画
+              animationArr[0].anIn();
+            })
+          }
+
+      }
+
+    }
+
+
+
+  }
 
 
 

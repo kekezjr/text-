@@ -112,6 +112,7 @@ img{display: block;}
     position: relative;
     width: 100%;
     height:20%;
+    overflow: hidden;
 }
 .contentMain section{
     width: 1100px;
@@ -486,7 +487,7 @@ img{display: block;}
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
-    transition: transform 1s;
+    transition: transform 2s;
 }
 .aboutImg:nth-child(3) div{
     background-image: url("../img/about1.jpg");
@@ -593,5 +594,42 @@ img{display: block;}
 }
 .canvas{
     position: absolute;
+    top: 0;
+}
+/*开机动画*/
+.bootAnimation{
+    position: absolute;
     top:0;
+    left:0;
+    z-index: 20;
+    width:100%;
+    height:100%;
+}
+.top{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height:50%;
+    background: #009ee0;
+    transition: height 1s;
+}
+.bottom{
+    position: absolute;
+    left:0;
+    bottom:0;
+    width:100%;
+    height:50%;
+    background: #009ee0;
+    transition: height 1s;
+}
+.line{
+    position: absolute;
+    top:50%;
+    left:0;
+    transform: translateY(-50%);
+    width: 0;
+    height: 4px;
+    background: white;
+    transition: width 1s;
 }
